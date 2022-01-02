@@ -17,14 +17,6 @@ import { drawMesh } from "./utilities";
 function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const runFacemesh = async () => {
-    const net = await facemesh.load(
-      facemesh.SupportedPackages.mediapipeFacemesh
-    );
-    setInterval(() => {
-      detect(net);
-    }, 10);
-  };
 
   const detect = async (net) => {
     if (
@@ -61,6 +53,15 @@ function App() {
   };
 
   useEffect(() => {
+    const runFacemesh = async () => {
+      const net = await facemesh.load(
+        facemesh.SupportedPackages.mediapipeFacemesh
+      );
+      setInterval(() => {
+        detect(net);
+      }, 10);
+    };
+
     runFacemesh();
   }, []);
   return (
